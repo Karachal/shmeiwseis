@@ -1,0 +1,57 @@
+1) git init (φτιαχνει repo)
+
+2) ftiaxnw ena file p.x. index.txt
+git add index.txt (einai sto git san pending, είναι ετοιμο για commit)
+git add . (κανει add ολα τα αρχεια)
+
+3) αν ενα αρχειο το κανω add, mporw na dw apo to-> git status
+αν το αλλαξω πριν το κανω commit αλλα ειναι add τρεχω: git diff index.txt (μου δειχνει τις αλλαγες)
+
+4) git commit (και γραφω εκει αλλαγές μέσα στον editor) ή 
+git commit -m 'First commit' (γραφει την αλλαγη κατευθειαν -> Fisrt commit)
+
+5) git log (για να τα δω)
+
+6) git reset --hard 82a3481c672f629c5b18b6d9c283596df434a65b(αυτο το παιρνω απο το git log) TA KANEI OLA RESET KAI KRATAEI TA TELEUTAIA!
+ git reset --soft 82a3481c672f629c5b18b6d9c283596df434a65b (oi allages uparxoun) SE PROJECT KALUTERA AUTO!
+
+7) git commit --amend (αποθηκευει στην ουσια το αλλαγμενο file μεσα στο προηγουμενο commit)
+
+8) git show 18890c373785681a33380ef3ba381d7c29db8f65 (μου δειχνει τις αλλαγες που εγιναν στο commited αρχειο)
+
+9)BRANCH
+git checkout -b feature-reporting (φτιαχνω ενα branch -b, και γραφω και τo ονομα του π.χ. feature-reporting)
+
+git checkout master (επιστρεφω στο master branch)     ----> genika kalutera na kanw ena branch gia dokimes kai meta na ta kanw sto master branch
+
+git checkout feature-reporting ------> αν θελω να παω παλι στο Branch που εκανα τρεχω αυτο.
+
+10)MERGE
+git checkout master (κανω checkout sto master) 
+
+git merge feature-reporting (mesa sto master kanw merge me to branch..edw to branch htan to feature-reporting)
+
+git branch -d feature-reporting (οταν τελειωσω με τις διαδικασιες μου σβηνω το Branch, -d -> delete)
+
+11) Αν τρέξω: git config --global alias.s status
+μετά όποτε τρέχω : git s  -> ειναι σαν να τρεχω git status (auta mporw na ta kanw gia oti thelw p.x. alias.l log-> git l = git log)
+αν θελω να το σταματησω: git config --global --unset alias.s
+
+Γενικα αν θελω να αλλαξω το configuration tou git trexw : sudo vi ./.bashrc , kai vazw oti suntomografia thelw
+
+12) Αν θελω να κανω ενα reset σε προηγουμενη κατασταση κανω git log και copy paste to commit id
+π.χ.  
+ git reset --soft b8bd23008fa57564518ad9dfc0485e115e58b138
+
+
+13) an eimai se ena repo pou einai hdh sto github 
+afou kanw git add kai git commit meta mporw na kanw:       git push  (anevazei oti allakse sto repo mou kai anevainei san extra commit)
+
+
+14)  git reflog (deixnei san istoriko kathe event pou egine, apo ekei mporw na parw id kai na kanw reset)
+για το reset:  git reset --hard a2a1c20 (ID)
+
+15)git rebase -i master (epeksergazomai ta commits apo edw)
+
+16) CLONE(pairnw repo apo to github kai to pernaw local
+git clone git@github.com:Karachal/learn-git.git

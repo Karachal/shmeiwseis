@@ -1,0 +1,104 @@
+original odhgos(lamp-docker-wordpress):
+https://www.experts-exchange.com/articles/33412/Setup-a-Docker-Wordpress-LAMP-Stack.html
+
+
+ERROR gia php 7.4:
+
+E: Package 'php7.4' has no installation candidate
+E: Unable to locate package php7.4-mysql
+E: Couldn't find any package by glob 'php7.4-mysql'
+
+exoume ekdosi debian (entoli gia na dw: cat /etc/os-release)  :
+ 
+PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+NAME="Debian GNU/Linux"
+VERSION_ID="12"
+VERSION="12 (bookworm)"
+VERSION_CODENAME=bookworm
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+
+
+Fix (php mesa sto bash tou container):
+1)apt update
+2)apt install -y apt-transport-https lsb-release ca-certificates curl
+3)curl -sSL -o /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+4)echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+5)apt update
+6)apt install -y php7.4
+
+----------------------------------------------------------------
+
+Idio error se UBUNTU 22.04 gia install php 7.4
+
+E: Package 'php7.4' has no installation candidate
+E: Unable to locate package php7.4-mysql
+E: Couldn't find any package by glob 'php7.4-mysql'
+
+FIX:
+1) apt update
+2) apt upgrade 
+3) apt install software-properties-common ca-certificates lsb-release apt-transport-https
+4) LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php 
+5) apt update 
+6) apt install php7.4.......
+
+
+
+
+
+
+-----------------------------------------------------------------
+
+
+Volumes:
+1)karahalios@DESKTOP-C7PCBD3:~/debian$ docker run -it --privileged -v word_press:/var/www/  -p80:80 lamp:latest bash
+
+(to -v einai gia to volume)(word_press: einai gia to onoma tou volume kai meta vazw to directory pou thelw) (στο τελοσ βαζω ποιο Image θελω να καλεσω καθε φορα και στο τελος bash)
+
+ docker run -it --privileged -v word_press3:/var/www/  -p8081:80 saved_wordpress3_image
+
+2)meta afou grapsw oti thelw anoigo ena allo terminal kanw docker ps(gia to container id) gia na dw to docker mou kai meta apothikeuw me commit(mporw na exw kai versions)
+ 
+docker commit 7b49054669f7 saved_test_image
+docker commit 7b49054669f7 saved_test_image:v1.01(an  thelw na kratisw kai to prohgoumeno kai auto)
+
+
+-----------------------------------------------------------------
+
+
+CREATE WORDPRESS DATABASE MYSQL, INSIDE UBUNTU BASH TERMINAL IN DOCKER:
+
+1) CREATE USER 'wp-user'@'%' IDENTIFIED BY 'wp-password';
+2) GRANT ALL PRIVILEGES ON *.* TO 'wp-user'@'%';
+3) FLUSH PRIVILEGES;
+
+
+
+---------------------------------------------------------
+
+MYSQL SE UBUNTU ERROR: 
+Starting MySQL database server mysqld su: warning: cannot change directory to /nonexistent: No such file or directory
+
+
+FIX:
+service mysql stop
+usermod -d /var/lib/mysql/ mysql
+service mysql start
+
+
+
+________________________
+
+
+KALUTERO SCRIPT GIA startup.sh:
+
+service apache2 start
+service mariadb(mysql) start
+sleep infinity
+
+sthn sunexeia to kanw executable: chmod +x startup.sh -> trexei me to command ./startup.sh
+shkwnw to docker kai trexei to startup.sh kai meta kanw ctrl-c kai mporw na grapsw sto bash
+
